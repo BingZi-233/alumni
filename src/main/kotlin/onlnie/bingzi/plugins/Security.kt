@@ -2,13 +2,14 @@ package onlnie.bingzi.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.auth.jwt.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 
+/**
+ * Configure security
+ * 安全模块
+ */
 fun Application.configureSecurity() {
-
-    authentication {
+    // 默认自动安装，并使用authentication{ }来进行集中验证处理
+    authentication { // 表单验证
         basic(name = "myauth1") {
             realm = "Ktor Server"
             validate { credentials ->
@@ -28,8 +29,8 @@ fun Application.configureSecurity() {
             }
         }
     }
-    authentication {
-        jwt {
+//    authentication { // JSON验证
+//        jwt {
 //            val jwtAudience = environment.config.property("jwt.audience").getString()
 //            realm = environment.config.property("jwt.realm").getString()
 //            verifier(
@@ -42,21 +43,6 @@ fun Application.configureSecurity() {
 //            validate { credential ->
 //                if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
 //            }
-        }
-    }
-
-    routing {
-        authenticate("myauth1") {
-            get("/protected/route/basic") {
-                val principal = call.principal<UserIdPrincipal>()!!
-                call.respondText("Hello ${principal.name}")
-            }
-        }
-        authenticate("myauth1") {
-            get("/protected/route/form") {
-                val principal = call.principal<UserIdPrincipal>()!!
-                call.respondText("Hello ${principal.name}")
-            }
-        }
-    }
+//        }
+//    }
 }
