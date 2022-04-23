@@ -22,7 +22,7 @@ fun Application.configureRouting() {
             login("/login")
         }
         // 留言接口
-        route("/leaveComments") {
+        route("/message_board") {
 
         }
         // 照片接口
