@@ -1,4 +1,4 @@
-package onlnie.bingzi.internal.model.routes.auth
+package online.bingzi.internal.model.routes.auth
 
 import io.ktor.server.routing.*
 

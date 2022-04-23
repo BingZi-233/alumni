@@ -1,4 +1,4 @@
-package onlnie.bingzi.internal.entity
+package online.bingzi.internal.entity
 
 /**
  * User

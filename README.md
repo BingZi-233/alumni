@@ -13,6 +13,7 @@
 
 1. Kotlin 1.6.20
 2. Ktor 2.0.0
+3. Mybatis-Plus 3.5.1
 
 ## Claim
 

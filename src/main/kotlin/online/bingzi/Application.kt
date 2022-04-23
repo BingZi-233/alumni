@@ -1,8 +1,8 @@
-package onlnie.bingzi
+package online.bingzi
 
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import onlnie.bingzi.internal.plugins.*
+import online.bingzi.internal.plugins.*
 
 /**
  * Main

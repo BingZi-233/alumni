@@ -1,9 +1,9 @@
-package onlnie.bingzi.internal.plugins
+package online.bingzi.internal.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
-import onlnie.bingzi.internal.model.routes.auth.login
-import onlnie.bingzi.internal.model.routes.auth.register
+import online.bingzi.internal.model.routes.auth.login
+import online.bingzi.internal.model.routes.auth.register
 
 /**
  * Configure routing
