@@ -2,6 +2,8 @@ package onlnie.bingzi.internal.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import onlnie.bingzi.internal.model.routes.auth.login
+import onlnie.bingzi.internal.model.routes.auth.register
 
 /**
  * Configure routing
@@ -10,34 +12,22 @@ import io.ktor.server.routing.*
 fun Application.configureRouting() {
     // 默认自动安装，并使用routing{ }来进行集中管理路由请求
     routing {
-        // 注册
-        register("/register")
-        // 登录
-        login("/login")
-        userInfo("/user/{id}")
-    }
-}
+        // API接口
+        route("/api") {
 
-private fun Route.register(path: String) {
-    post(path) {
+        }
+        // 验证接口
+        route("/auth") {
+            register("/register")
+            login("/login")
+        }
+        // 留言接口
+        route("/leaveComments") {
 
-    }
-}
+        }
+        // 照片接口
+        route("/image") {
 
-private fun Route.login(path: String) {
-    post(path) {
-
-    }
-}
-
-private fun Route.userInfo(path: String) {
-    post(path) {
-
-    }
-}
-
-private fun Route.leaveComments(path: String) {
-    post(path) {
-
+        }
     }
 }
