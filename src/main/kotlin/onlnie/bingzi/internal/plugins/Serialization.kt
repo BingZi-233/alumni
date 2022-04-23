@@ -1,4 +1,4 @@
-package onlnie.bingzi.plugins
+package onlnie.bingzi.internal.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

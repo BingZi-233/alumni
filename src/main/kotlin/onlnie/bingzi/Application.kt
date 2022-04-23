@@ -2,7 +2,7 @@ package onlnie.bingzi
 
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import onlnie.bingzi.plugins.*
+import onlnie.bingzi.internal.plugins.*
 
 /**
  * Main

@@ -4,7 +4,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import onlnie.bingzi.plugins.configureRouting
+import onlnie.bingzi.internal.plugins.configureRouting
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
