@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.bingzi.internal.mapper.auth.RegisterMapper">
+    <!--fun queryUserByUser(): UserRegister?-->
+    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.request.auth.UserRegister">
+        select *
+        from table_user
+        where user = #{user}
+    </select>
+    <!--fun insertUser(): Int-->
+    <insert id="insertUser" parameterType="online.bingzi.internal.entity.request.auth.UserRegister">
+        insert into table_user(user, password, username, clazz) value (#{user}, #{password}, #{username}, #{clazz})
+    </insert>
+</mapper>

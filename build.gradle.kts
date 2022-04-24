@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("mysql:mysql-connector-java:8.0.28")
     implementation("org.mybatis:mybatis:$mybatis_version")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-call-logging-jvm:$ktor_version")

@@ -1,6 +1,6 @@
 package online.bingzi.internal.model.routes.auth
 
-import online.bingzi.internal.mapper.UserMapper
+import online.bingzi.internal.mapper.auth.RegisterMapper
 import online.bingzi.internal.util.openSession
 
 /**
@@ -10,5 +10,5 @@ import online.bingzi.internal.util.openSession
  * @constructor Create empty Auth session
  */
 object AuthSession {
-    val mapper: UserMapper = openSession.getMapper(UserMapper::class.java)
+    val registerMapper: RegisterMapper = openSession.getMapper(RegisterMapper::class.java)
 }
