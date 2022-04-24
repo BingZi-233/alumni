@@ -2,7 +2,6 @@ package online.bingzi.internal.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.model.routes.auth.login
 import online.bingzi.internal.model.routes.auth.register
 
 /**
@@ -14,20 +13,9 @@ fun Application.configureRouting() {
     routing {
         // API接口
         route("/api") {
-
-        }
-        // 验证接口
-        route("/auth") {
-            register("/register")
-            login("/login")
-        }
-        // 留言接口
-        route("/message_board") {
-
-        }
-        // 照片接口
-        route("/image") {
-
+            route("/auth") {
+                register("/register")
+            }
         }
     }
 }
