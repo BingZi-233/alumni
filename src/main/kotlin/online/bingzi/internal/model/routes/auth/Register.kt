@@ -9,6 +9,7 @@ import online.bingzi.internal.entity.request.auth.UserRegisterResult
 
 /**
  * Register
+ * 注册路由
  *
  * @param path Url路径
  */

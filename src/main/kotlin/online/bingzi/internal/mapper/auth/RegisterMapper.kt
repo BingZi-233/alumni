@@ -7,6 +7,7 @@ interface RegisterMapper {
      * Query user by user
      * 查询用户根据用户名进行
      *
+     * @param user 用户名
      * @return 用户
      */
     fun queryUserByUser(user: String): UserRegister?

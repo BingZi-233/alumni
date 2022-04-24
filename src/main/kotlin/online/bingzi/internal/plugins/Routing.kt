@@ -3,6 +3,7 @@ package online.bingzi.internal.plugins
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.model.routes.auth.register
+import online.bingzi.internal.model.routes.auth.unregister
 
 /**
  * Configure routing
@@ -15,6 +16,7 @@ fun Application.configureRouting() {
         route("/api") {
             route("/auth") {
                 register("/register")
+                unregister("/unregister")
             }
         }
     }

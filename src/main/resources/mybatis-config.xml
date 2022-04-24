@@ -16,5 +16,6 @@
     </environments>
     <mappers>
         <mapper resource="mappers/RegisterMapper.xml"/>
+        <mapper resource="mappers/UnRegisterMapper.xml"/>
     </mappers>
 </configuration>
