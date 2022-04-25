@@ -1,7 +1,9 @@
 package online.bingzi.internal.plugins
 
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.routing.*
+import online.bingzi.internal.model.routes.user.userLogin
 import online.bingzi.internal.model.routes.user.userRegister
 import online.bingzi.internal.model.routes.user.userUnRegister
 import online.bingzi.internal.model.routes.user.userUpdate
@@ -21,6 +23,11 @@ fun Application.configureRouting() {
                 userRegister("/register")
                 // 注销路由
                 userUnRegister("/unregister")
+                // 登录路由
+                userLogin("/login")
+            }
+            authenticate {
+
             }
             // 更新主路由
             route("/update") {

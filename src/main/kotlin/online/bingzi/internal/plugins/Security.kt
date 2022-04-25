@@ -1,48 +1,43 @@
 package online.bingzi.internal.plugins
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
+import io.ktor.server.response.*
+import java.util.*
 
-/**
- * Configure security
- * 安全模块
- */
+private const val secret = "secret"
+private const val issuer = "http://0.0.0.0:8080/"
+private const val audience = "http://0.0.0.0:8080/hello"
+private const val myRealm = "Access to 'hello'"
+
 fun Application.configureSecurity() {
-    // 默认自动安装，并使用authentication{ }来进行集中验证处理
-    authentication { // 表单验证
-        basic(name = "myauth1") {
-            realm = "Ktor Server"
-            validate { credentials ->
-                if (credentials.name == credentials.password) {
-                    UserIdPrincipal(credentials.name)
+    // 安装Jwt安全模块
+    install(Authentication) {
+        jwt {
+            realm = myRealm
+            verifier(JWT.require(Algorithm.HMAC256(secret)).withAudience(audience).withIssuer(issuer).build())
+            validate {
+                if (it.payload.getClaim("user").asString() != "") {
+                    JWTPrincipal(it.payload)
                 } else {
                     null
                 }
             }
-        }
-
-        form(name = "myauth2") {
-            userParamName = "user"
-            passwordParamName = "password"
-            challenge {
-                /**/
+            challenge { _, _ ->
+                call.respond(HttpStatusCode.Unauthorized, "令牌无效或已过期")
             }
         }
     }
-//    authentication { // JSON验证
-//        jwt {
-//            val jwtAudience = environment.config.property("jwt.audience").getString()
-//            realm = environment.config.property("jwt.realm").getString()
-//            verifier(
-//                JWT
-//                    .require(Algorithm.HMAC256("secret"))
-//                    .withAudience(jwtAudience)
-//                    .withIssuer(environment.config.property("jwt.domain").getString())
-//                    .build()
-//            )
-//            validate { credential ->
-//                if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
-//            }
-//        }
-//    }
+}
+
+fun authGetToken(user: String): String {
+    return JWT.create()
+        .withAudience(audience)
+        .withIssuer(issuer).withClaim("user", user)
+        .withExpiresAt(Date(System.currentTimeMillis() + 60000))
+        .sign(Algorithm.HMAC256(secret))
 }

@@ -18,5 +18,6 @@
         <mapper resource="mappers/UserRegisterMapper.xml"/>
         <mapper resource="mappers/UserUnRegisterMapper.xml"/>
         <mapper resource="mappers/UserUpdateMapper.xml"/>
+        <mapper resource="mappers/UserLoginMapper.xml"/>
     </mappers>
 </configuration>
