@@ -2,6 +2,12 @@ package online.bingzi.internal.mapper.user
 
 import online.bingzi.internal.entity.request.user.UserRegister
 
+/**
+ * User register mapper
+ * 玩家注册映射器
+ *
+ * @constructor Create empty User register mapper
+ */
 interface UserRegisterMapper {
     /**
      * Query user by user
@@ -18,5 +24,5 @@ interface UserRegisterMapper {
      *
      * @return 影响的行号
      */
-    fun insertUser(userRegister: UserRegister): Int
+    fun insertUser(userRegister: UserRegister): Void
 }

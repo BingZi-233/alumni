@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.bingzi.internal.mapper.photo.PhotoCreateMapper">
+    <select id="queryPhotoByUser" parameterType="online.bingzi.internal.entity.request.photo.PhotoCreate">
+        select user
+        from table_photo
+        where user = #{user}
+    </select>
+    <insert id="insertPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoCreate">
+        insert into table_photo(user, uid, photo, image) VALUE (#{user}, #{uid}, #{photo}, #{image})
+    </insert>
+</mapper>

@@ -2,6 +2,12 @@ package online.bingzi.internal.mapper.user
 
 import online.bingzi.internal.entity.request.user.UserUpdate
 
+/**
+ * User update mapper
+ * 玩家更新映射器
+ *
+ * @constructor Create empty User update mapper
+ */
 interface UserUpdateMapper {
     /**
      * Query user by user
@@ -18,5 +24,5 @@ interface UserUpdateMapper {
      * @param unRegister 用户
      * @return 影响的行号
      */
-    fun updateUser(unRegister: UserUpdate): Int
+    fun updateUser(unRegister: UserUpdate): Void
 }

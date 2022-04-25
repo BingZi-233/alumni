@@ -1,4 +1,4 @@
-package online.bingzi.internal.model.routes.user
+package online.bingzi.internal.routes.user
 
 import online.bingzi.internal.mapper.user.UserLoginMapper
 import online.bingzi.internal.mapper.user.UserRegisterMapper

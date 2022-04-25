@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.bingzi.internal.mapper.photo.PhotoUpdateMapper">
+    <select id="queryPhotoByUser" parameterType="online.bingzi.internal.entity.request.photo.PhotoUpdate"
+            resultType="online.bingzi.internal.entity.request.photo.PhotoUpdate">
+        select user, uid, photo, image
+        from table_photo
+        where user = #{user}
+    </select>
+    <update id="updateUser" parameterType="online.bingzi.internal.entity.request.photo.PhotoUpdate">
+        update table_photo
+        set photo=#{photo}
+        where uid = #{uid}
+    </update>
+</mapper>

@@ -2,6 +2,12 @@ package online.bingzi.internal.mapper.user
 
 import online.bingzi.internal.entity.request.user.UserLogin
 
+/**
+ * User login mapper
+ * 玩家登录映射器
+ *
+ * @constructor Create empty User login mapper
+ */
 interface UserLoginMapper {
     /**
      * Query user by user

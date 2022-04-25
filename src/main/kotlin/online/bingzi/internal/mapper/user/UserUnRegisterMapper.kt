@@ -2,6 +2,12 @@ package online.bingzi.internal.mapper.user
 
 import online.bingzi.internal.entity.request.user.UserUnRegister
 
+/**
+ * User unregister mapper
+ * 玩家注销映射器
+ *
+ * @constructor Create empty User un register mapper
+ */
 interface UserUnRegisterMapper {
     /**
      * Query user by user
@@ -18,5 +24,5 @@ interface UserUnRegisterMapper {
      * @param unRegister 用户
      * @return 影响的行号
      */
-    fun deleteUser(unRegister: UserUnRegister): Int
+    fun deleteUser(unRegister: UserUnRegister): Void
 }

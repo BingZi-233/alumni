@@ -3,10 +3,14 @@ package online.bingzi.internal.plugins
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.model.routes.user.userLogin
-import online.bingzi.internal.model.routes.user.userRegister
-import online.bingzi.internal.model.routes.user.userUnRegister
-import online.bingzi.internal.model.routes.user.userUpdate
+import online.bingzi.internal.routes.messageBoard.messageBoardDelete
+import online.bingzi.internal.routes.messageBoard.messageBoardQuery
+import online.bingzi.internal.routes.messageBoard.messageBoardUpdate
+import online.bingzi.internal.routes.photo.*
+import online.bingzi.internal.routes.user.userLogin
+import online.bingzi.internal.routes.user.userRegister
+import online.bingzi.internal.routes.user.userUnRegister
+import online.bingzi.internal.routes.user.userUpdate
 
 /**
  * Configure routing
@@ -17,23 +21,45 @@ fun Application.configureRouting() {
     routing {
         // API接口路由
         route("/api") {
-            // 安全主路由
+            // 安全不安全路由
             route("/auth") {
                 // 注册路由
                 userRegister("/register")
                 // 登录路由
                 userLogin("/login")
             }
-            // 受保护的路由
+            // 受保护的路由，以下路由受Token保护
             authenticate("auth-jwt") {
+                // 认证安全路由
                 route("/auth") {
                     // 注销路由
                     userUnRegister("/unregister")
+                    // 用户信心更新
+                    userUpdate("/update")
                 }
-                // 更新主路由
-                route("/update") {
-                    // 用户信息更新路由
-                    userUpdate("/user")
+                // 留言板
+                route("/messageboard") {
+                    messageBoardDelete("/delete")
+                    messageBoardUpdate("/update")
+                    messageBoardQuery("/query")
+                }
+                // 相册安全路由
+                route("photo") {
+                    // 相册创建路由
+                    photoCreate("/create")
+                    // 相册查询路由
+                    photoQuery("/query")
+                    // 相册更新路由
+                    photoUpdate("/update")
+                    // 相册删除路由
+                    photoDelete("/delete")
+                    // 相册内图片安全路由
+                    route("/image") {
+                        // 相册内照片删除路由
+                        photoImageDelete("/delete")
+                        // 相册内照片插入路由
+                        photoImageInsert("/insert")
+                    }
                 }
             }
         }

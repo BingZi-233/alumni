@@ -15,9 +15,13 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mappers/UserRegisterMapper.xml"/>
-        <mapper resource="mappers/UserUnRegisterMapper.xml"/>
-        <mapper resource="mappers/UserUpdateMapper.xml"/>
-        <mapper resource="mappers/UserLoginMapper.xml"/>
+        <mapper resource="mappers/user/UserRegisterMapper.xml"/>
+        <mapper resource="mappers/user/UserUnRegisterMapper.xml"/>
+        <mapper resource="mappers/user/UserUpdateMapper.xml"/>
+        <mapper resource="mappers/user/UserLoginMapper.xml"/>
+        <mapper resource="mappers/photo/PhotoCreateMapper.xml"/>
+        <mapper resource="mappers/photo/PhotoDeleteMapper.xml"/>
+        <mapper resource="mappers/photo/PhotoQueryMapper.xml"/>
+        <mapper resource="mappers/photo/PhotoUpdateMapper.xml"/>
     </mappers>
 </configuration>

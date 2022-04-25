@@ -1,4 +1,4 @@
-package online.bingzi.internal.model.routes.user
+package online.bingzi.internal.routes.user
 
 import io.ktor.server.application.*
 import io.ktor.server.request.*
