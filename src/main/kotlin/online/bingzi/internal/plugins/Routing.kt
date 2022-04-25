@@ -26,13 +26,13 @@ fun Application.configureRouting() {
                 // 登录路由
                 userLogin("/login")
             }
-            authenticate {
-
-            }
-            // 更新主路由
-            route("/update") {
-                // 用户信息更新路由
-                userUpdate("/user")
+            // 受保护的路由
+            authenticate("auth-jwt") {
+                // 更新主路由
+                route("/update") {
+                    // 用户信息更新路由
+                    userUpdate("/user")
+                }
             }
         }
     }

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="online.bingzi.internal.mapper.user.UserUnRegisterMapper">
     <select id="queryUserByUser" resultType="online.bingzi.internal.entity.request.user.UserUnRegister">
-        select *
+        select user, username, password, clazz
         from table_user
         where user = #{user}
           and password = #{password}
