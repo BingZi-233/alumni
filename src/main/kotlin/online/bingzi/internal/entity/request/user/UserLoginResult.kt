@@ -1,4 +1,4 @@
-package online.bingzi.internal.entity.request.auth
+package online.bingzi.internal.entity.request.user
 
 import kotlinx.serialization.Serializable
 

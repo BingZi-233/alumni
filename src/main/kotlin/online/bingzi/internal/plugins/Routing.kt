@@ -2,8 +2,9 @@ package online.bingzi.internal.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.model.routes.auth.register
-import online.bingzi.internal.model.routes.auth.unregister
+import online.bingzi.internal.model.routes.user.userRegister
+import online.bingzi.internal.model.routes.user.userUnRegister
+import online.bingzi.internal.model.routes.user.userUpdate
 
 /**
  * Configure routing
@@ -12,11 +13,19 @@ import online.bingzi.internal.model.routes.auth.unregister
 fun Application.configureRouting() {
     // 默认自动安装，并使用routing{ }来进行集中管理路由请求
     routing {
-        // API接口
+        // API接口路由
         route("/api") {
+            // 安全主路由
             route("/auth") {
-                register("/register")
-                unregister("/unregister")
+                // 注册路由
+                userRegister("/register")
+                // 注销路由
+                userUnRegister("/unregister")
+            }
+            // 更新主路由
+            route("/update") {
+                // 用户信息更新路由
+                userUpdate("/user")
             }
         }
     }

@@ -2,15 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="online.bingzi.internal.mapper.auth.RegisterMapper">
-    <!--queryUserByUser()-->
-    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.request.auth.UserRegister">
+<mapper namespace="online.bingzi.internal.mapper.user.UserRegisterMapper">
+    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.request.user.UserRegister">
         select *
         from table_user
         where user = #{user}
     </select>
-    <!--insertUser()-->
-    <insert id="insertUser" parameterType="online.bingzi.internal.entity.request.auth.UserRegister">
+    <insert id="insertUser" parameterType="online.bingzi.internal.entity.request.user.UserRegister">
         insert into table_user(user, password, username, clazz) value (#{user}, #{password}, #{username}, #{clazz})
     </insert>
 </mapper>

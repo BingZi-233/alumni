@@ -2,16 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="online.bingzi.internal.mapper.auth.UnRegisterMapper">
-    <!--queryUserByUser()-->
-    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.request.auth.UserUnRegister">
+<mapper namespace="online.bingzi.internal.mapper.user.UserUnRegisterMapper">
+    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.request.user.UserUnRegister">
         select *
         from table_user
         where user = #{user}
           and password = #{password}
     </select>
-    <!--deleteUser-->
-    <delete id="deleteUser" parameterType="online.bingzi.internal.entity.request.auth.UserUnRegister">
+    <delete id="deleteUser" parameterType="online.bingzi.internal.entity.request.user.UserUnRegister">
         delete
         from table_user
         where user = #{user}

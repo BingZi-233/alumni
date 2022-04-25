@@ -1,11 +1,11 @@
-package online.bingzi.internal.model.routes.auth
+package online.bingzi.internal.model.routes.user
 
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.entity.request.auth.UserRegister
-import online.bingzi.internal.entity.request.auth.UserRegisterResult
+import online.bingzi.internal.entity.request.user.UserRegister
+import online.bingzi.internal.entity.request.user.UserRegisterResult
 
 /**
  * Register
@@ -13,7 +13,7 @@ import online.bingzi.internal.entity.request.auth.UserRegisterResult
  *
  * @param path Url路径
  */
-fun Route.register(path: String) {
+fun Route.userRegister(path: String) {
     post(path) {
         // 将发送过来的JSON进行序列化
         val userRegister = call.receive(UserRegister::class)
@@ -35,12 +35,12 @@ fun Route.register(path: String) {
         // 判断检验是否通过
         if (userRegisterResult.result) {
             // 在数据库中查询该用户是否存在
-            AuthSession.registerMapper.queryUserByUser(userRegister.user)?.let {
+            UserSession.userRegisterMapper.queryUserByUser(userRegister.user)?.let {
                 // 用户存在，更改返回值
                 userRegisterResult.result = false
                 // 构建提示语句
                 userRegisterResult.info = "校验失败，该用户名已存在！"
-            } ?: AuthSession.registerMapper.insertUser(userRegister) // 用户不存在，将该用户数据插入到数据库中
+            } ?: UserSession.userRegisterMapper.insertUser(userRegister) // 用户不存在，将该用户数据插入到数据库中
         }
         // 返回实体并自动转化为JSON类型返回
         call.respond(userRegisterResult)

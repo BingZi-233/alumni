@@ -1,8 +1,8 @@
-package online.bingzi.internal.mapper.auth
+package online.bingzi.internal.mapper.user
 
-import online.bingzi.internal.entity.request.auth.UserRegister
+import online.bingzi.internal.entity.request.user.UserRegister
 
-interface RegisterMapper {
+interface UserRegisterMapper {
     /**
      * Query user by user
      * 查询用户根据用户名进行
