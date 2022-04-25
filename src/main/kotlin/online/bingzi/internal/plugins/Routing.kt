@@ -21,13 +21,15 @@ fun Application.configureRouting() {
             route("/auth") {
                 // 注册路由
                 userRegister("/register")
-                // 注销路由
-                userUnRegister("/unregister")
                 // 登录路由
                 userLogin("/login")
             }
             // 受保护的路由
             authenticate("auth-jwt") {
+                route("/auth") {
+                    // 注销路由
+                    userUnRegister("/unregister")
+                }
                 // 更新主路由
                 route("/update") {
                     // 用户信息更新路由
