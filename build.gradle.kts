@@ -11,10 +11,9 @@ plugins {
 }
 
 group = "online.bingzi"
-version = "0.0.2"
+version = "0.0.4"
 application {
     mainClass.set("online.bingzi.ApplicationKt")
-
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }

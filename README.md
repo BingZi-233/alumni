@@ -25,4 +25,64 @@
 
 ## Route
 
+1. 用户路由
+
+<details>
+
+1. 登录
+
+```http request
+POST http://127.0.0.1:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "user": "administration",
+  "password": "Test987456"
+}
+```
+
+2. 注册
+
+```http request
+POST http://127.0.0.1:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "user":"administration",
+  "password":"Test123321",
+  "clazz":"2132Z12345",
+  "username":"法外娇妻李四"
+}
+```
+
+3. 更新用户信息
+
+```http request
+POST http://127.0.0.1:8080/api/update/user
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": "administration",
+  "username": "李四200",
+  "clazz": "2132Z000000",
+  "password": "Test987456"
+}
+```
+
+4. 注销用户
+
+```http request
+POST http://127.0.0.1:8080/api/auth/unregister
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": "administration",
+  "password": "Test987456"
+}
+```
+
+</details>
+
 
