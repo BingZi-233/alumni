@@ -85,4 +85,61 @@ Content-Type: application/json
 
 </details>
 
+2. 相册路由
+
+<details>
+
+1. 新建相册
+
+```http request
+POST http://127.0.0.1:8080/api/photo/create
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": "administration",
+  "photo": "Test2"
+}
+```
+
+2. 删除相册
+
+```http request
+POST http://127.0.0.1:8080/api/photo/delete
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": "administration",
+  "uid": "0b95b8914db047a586a6375c5dcccbc2"
+}
+```
+
+3. 查询相册
+
+```http request
+POST http://127.0.0.1:8080/api/photo/query
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": "administration"
+}
+```
+
+4. 更新相册
+
+```http request
+POST http://127.0.0.1:8080/api/photo/update
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user": "administration",
+  "uid": "c84602db-ff9f-464c-aeb9-b7bfa32679cc",
+  "photo": "1dadadx"
+}
+```
+
+</details>
 

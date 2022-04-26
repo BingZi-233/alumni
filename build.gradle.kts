@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "online.bingzi"
-version = "0.0.4"
+version = "0.0.8"
 application {
     mainClass.set("online.bingzi.ApplicationKt")
     val isDevelopment: Boolean = project.ext.has("development")
