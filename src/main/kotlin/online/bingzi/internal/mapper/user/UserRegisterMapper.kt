@@ -24,5 +24,5 @@ interface UserRegisterMapper {
      *
      * @return 影响的行号
      */
-    fun insertUser(userRegister: UserRegister): Void
+    fun insertUser(userRegister: UserRegister)
 }

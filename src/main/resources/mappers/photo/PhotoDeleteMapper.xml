@@ -3,16 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="online.bingzi.internal.mapper.photo.PhotoDeleteMapper">
-    <select id="queryPhotoByUser" parameterType="online.bingzi.internal.entity.request.photo.PhotoDelete">
+    <select id="queryPhotoByUser" parameterType="online.bingzi.internal.entity.request.photo.PhotoDelete"
+            resultType="online.bingzi.internal.entity.request.photo.PhotoDelete">
         select user, uid
         from table_photo
-        where user = ${user}
+        where user = #{user}
           and uid = #{uid}
     </select>
     <delete id="deletePhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoDelete">
         delete
         from table_photo
-        where user = #{user}
-          and uid = #{uid}
+        where uid = #{uid}
+          and user = #{user}
     </delete>
 </mapper>

@@ -16,7 +16,7 @@ interface PhotoUpdateMapper {
      * @param photoUpdate 相册
      * @return 相册
      */
-    fun queryPhotoByUser(photoUpdate: PhotoUpdate): PhotoUpdate
+    fun queryPhotoByUser(photoUpdate: PhotoUpdate): PhotoUpdate?
 
     /**
      * Update photo
@@ -25,5 +25,5 @@ interface PhotoUpdateMapper {
      * @param photoUpdate 相册
      * @return
      */
-    fun updatePhoto(photoUpdate: PhotoUpdate): Void
+    fun updatePhoto(photoUpdate: PhotoUpdate)
 }

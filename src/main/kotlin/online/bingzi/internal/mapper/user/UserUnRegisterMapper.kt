@@ -24,5 +24,5 @@ interface UserUnRegisterMapper {
      * @param unRegister 用户
      * @return 影响的行号
      */
-    fun deleteUser(unRegister: UserUnRegister): Void
+    fun deleteUser(unRegister: UserUnRegister)
 }

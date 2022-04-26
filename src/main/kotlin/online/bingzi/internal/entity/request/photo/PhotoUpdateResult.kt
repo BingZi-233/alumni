@@ -1,5 +1,7 @@
 package online.bingzi.internal.entity.request.photo
 
+import kotlinx.serialization.Serializable
+
 /**
  * Photo update result
  *
@@ -10,10 +12,11 @@ package online.bingzi.internal.entity.request.photo
  * @property info 备注
  * @constructor Create empty Photo update result
  */
+@Serializable
 data class PhotoUpdateResult(
-    val user: String,
-    val uid: String,
-    val photo: Boolean,
-    val result: Boolean,
-    val info: String,
+    var user: String = "",
+    var uid: String = "",
+    var photo: Boolean = false,
+    var result: Boolean = false,
+    var info: String = "",
 )

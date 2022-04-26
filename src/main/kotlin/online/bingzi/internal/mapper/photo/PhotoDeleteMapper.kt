@@ -24,5 +24,5 @@ interface PhotoDeleteMapper {
      * @param photoDelete 相册
      * @return
      */
-    fun deletePhoto(photoDelete: PhotoDelete): Void
+    fun deletePhoto(photoDelete: PhotoDelete)
 }

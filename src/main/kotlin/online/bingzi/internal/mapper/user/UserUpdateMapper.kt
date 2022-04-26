@@ -24,5 +24,5 @@ interface UserUpdateMapper {
      * @param unRegister 用户
      * @return 影响的行号
      */
-    fun updateUser(unRegister: UserUpdate): Void
+    fun updateUser(unRegister: UserUpdate)
 }

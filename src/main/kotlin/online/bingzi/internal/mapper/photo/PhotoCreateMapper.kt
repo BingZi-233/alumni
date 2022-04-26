@@ -24,5 +24,5 @@ interface PhotoCreateMapper {
      * @param photoCreate 相册
      * @return
      */
-    fun insertPhoto(photoCreate: PhotoCreate): Void
+    fun insertPhoto(photoCreate: PhotoCreate)
 }

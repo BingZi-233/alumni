@@ -31,6 +31,7 @@ fun Route.photoDelete(path: String) {
             photoDeleteResult.info = "用户${photoDelete.user}的${photoDelete.uid}相册不存在。"
             false
         }
+        // 返回实体并自动转化为JSON类型返回
         call.respond(photoDeleteResult)
     }
 }
