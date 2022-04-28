@@ -10,12 +10,12 @@
         where photo = #{photo}
     </select>
     <insert id="insertImageByPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoImageInsertOrDelete">
-        insert into table_resources(photo, resources) value (#{photo}, #{resources})
+        insert into table_resources(photo, resources) value (#{photo}, #{image})
     </insert>
     <delete id="deleteImageByPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoImageInsertOrDelete">
         delete
         from table_resources
         where photo = #{photo}
-          and resources = #{resources}
+          and resources = #{image}
     </delete>
 </mapper>

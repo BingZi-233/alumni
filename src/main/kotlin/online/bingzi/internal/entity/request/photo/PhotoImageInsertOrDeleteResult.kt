@@ -1,5 +1,7 @@
 package online.bingzi.internal.entity.request.photo
 
+import kotlinx.serialization.Serializable
+
 /**
  * Photo image insert or delete
  *
@@ -10,6 +12,7 @@ package online.bingzi.internal.entity.request.photo
  * @property result 结果
  * @constructor Create empty Photo image insert or delete
  */
+@Serializable
 data class PhotoImageInsertOrDeleteResult(
     var user: String = "",
     var photo: String = "",
