@@ -28,7 +28,7 @@ fun Application.configureRouting() {
                 // 登录路由
                 userLogin("/login")
             }
-            // 受保护的路由，以下路由受Token保护
+            // 受保护的路由，以下路由受JWT(Token)保护
             authenticate("auth-jwt") {
                 // 认证安全路由
                 route("/auth") {
@@ -55,6 +55,8 @@ fun Application.configureRouting() {
                     photoDelete("/delete")
                     // 相册内图片安全路由
                     route("/image") {
+                        // 相册内照片查询路由
+                        photoImageQuery("/query")
                         // 相册内照片删除路由
                         photoImageDelete("/delete")
                         // 相册内照片插入路由

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.bingzi.internal.mapper.photo.PhotoImageQueryMapper">
+    <select id="queryImageByPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoImageQuery"
+            resultType="online.bingzi.internal.entity.request.photo.Image">
+        select photo, resources
+        from table_resources
+        where photo = #{photo}
+    </select>
+</mapper>
