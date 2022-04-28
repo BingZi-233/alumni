@@ -141,5 +141,49 @@ Content-Type: application/json
 }
 ```
 
+5. 相册内照片查询
+
+```http request
+POST http://127.0.0.1:8080/api/photo/image/query
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user":"administration",
+  "photo":"c84602db-ff9f-464c-aeb9-b7bfa32679cc"
+}
+
+```
+
+6. 相册内照片增加
+
+```http request
+POST http://127.0.0.1:8080/api/photo/image/insert
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user":"administration",
+  "photo":"c84602db-ff9f-464c-aeb9-b7bfa32679cc",
+  "image": "test.png",
+  "type" : 1
+}
+```
+
+7. 相册内照片移除
+
+```http request
+POST http://127.0.0.1:8080/api/photo/image/delete
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "user":"administration",
+  "photo":"c84602db-ff9f-464c-aeb9-b7bfa32679cc",
+  "image": "test.png",
+  "type" : 0
+}
+```
+
 </details>
 
