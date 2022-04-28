@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.user.UserRegister
 import online.bingzi.internal.entity.request.user.UserRegisterResult
+import online.bingzi.internal.routes.user.UserSession.userRegisterMapper
 
 /**
  * Register
@@ -35,12 +36,12 @@ fun Route.userRegister(path: String) {
         // 判断检验是否通过
         if (userRegisterResult.result) {
             // 在数据库中查询该用户是否存在
-            UserSession.userRegisterMapper.queryUserByUser(userRegister.user)?.let {
+            userRegisterMapper.queryUserByUser(userRegister.user)?.let {
                 // 用户存在，更改返回值
                 userRegisterResult.result = false
                 // 构建提示语句
                 userRegisterResult.info = "校验失败，该用户名已存在！"
-            } ?: UserSession.userRegisterMapper.insertUser(userRegister) // 用户不存在，将该用户数据插入到数据库中
+            } ?: userRegisterMapper.insertUser(userRegister) // 用户不存在，将该用户数据插入到数据库中
         }
         // 返回实体并自动转化为JSON类型返回
         call.respond(userRegisterResult)

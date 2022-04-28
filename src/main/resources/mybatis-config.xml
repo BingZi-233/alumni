@@ -23,6 +23,6 @@
         <mapper resource="mappers/photo/PhotoDeleteMapper.xml"/>
         <mapper resource="mappers/photo/PhotoQueryMapper.xml"/>
         <mapper resource="mappers/photo/PhotoUpdateMapper.xml"/>
-        <mapper resource="mappers/photo/PhotoImageQueryMapper.xml"/>
+        <mapper resource="mappers/photo/PhotoImageMapper.xml"/>
     </mappers>
 </configuration>

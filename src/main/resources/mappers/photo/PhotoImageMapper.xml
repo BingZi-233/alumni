@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.bingzi.internal.mapper.photo.PhotoImageMapper">
+    <select id="queryImageByPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoImageQuery"
+            resultType="online.bingzi.internal.entity.request.photo.Image">
+        select photo, resources
+        from table_resources
+        where photo = #{photo}
+    </select>
+    <insert id="insertImageByPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoImageInsertOrDelete">
+        insert into table_resources(photo, resources) value (#{photo}, #{resources})
+    </insert>
+    <delete id="deleteImageByPhoto" parameterType="online.bingzi.internal.entity.request.photo.PhotoImageInsertOrDelete">
+        delete
+        from table_resources
+        where photo = #{photo}
+          and resources = #{resources}
+    </delete>
+</mapper>

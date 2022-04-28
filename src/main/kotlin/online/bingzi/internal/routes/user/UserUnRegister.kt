@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.user.UserUnRegister
 import online.bingzi.internal.entity.request.user.UserUnRegisterResult
+import online.bingzi.internal.routes.user.UserSession.userUnRegisterMapper
 
 /**
  * Unregister
@@ -20,9 +21,9 @@ fun Route.userUnRegister(path: String) {
         // 预构建返回对象，已指定用户名
         val userUnRegisterResult = UserUnRegisterResult(userUnRegister.user)
         // 在数据库中查询该用户（用户和密码均匹配），并设置返回对象的返回值
-        userUnRegisterResult.result = UserSession.userUnRegisterMapper.queryUserByUser(userUnRegister)?.let {
+        userUnRegisterResult.result = userUnRegisterMapper.queryUserByUser(userUnRegister)?.let {
             // 已查到符合的行，对其进行删除
-            UserSession.userUnRegisterMapper.deleteUser(userUnRegister)
+            userUnRegisterMapper.deleteUser(userUnRegister)
             // 构建提示语句
             userUnRegisterResult.info = "账户${userUnRegister.user}已被删除"
             // 返回值设置为真

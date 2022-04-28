@@ -8,5 +8,5 @@ object PhotoSession {
     val photoQueryMapper: PhotoQueryMapper = openSession.getMapper(PhotoQueryMapper::class.java)
     val photoDeleteMapper: PhotoDeleteMapper = openSession.getMapper(PhotoDeleteMapper::class.java)
     val photoUpdateMapper: PhotoUpdateMapper = openSession.getMapper(PhotoUpdateMapper::class.java)
-    val photoImageQueryMapper: PhotoImageQueryMapper = openSession.getMapper(PhotoImageQueryMapper::class.java)
+    val photoImageMapper: PhotoImageMapper = openSession.getMapper(PhotoImageMapper::class.java)
 }

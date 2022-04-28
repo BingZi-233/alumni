@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.photo.PhotoDelete
 import online.bingzi.internal.entity.request.photo.PhotoDeleteResult
+import online.bingzi.internal.routes.photo.PhotoSession.photoDeleteMapper
 
 fun Route.photoDelete(path: String) {
     post(path) {
@@ -19,10 +20,10 @@ fun Route.photoDelete(path: String) {
             this.uid = photoDelete.uid
         }
         // 在数据库中查询该相册是否存在
-        val queryPhotoByUser = PhotoSession.photoDeleteMapper.queryPhotoByUser(photoDelete)
+        val queryPhotoByUser = photoDeleteMapper.queryPhotoByUser(photoDelete)
         photoDeleteResult.result = if (queryPhotoByUser != null) { // 当相册存在时
             // 从数据库中删除这个相册
-            PhotoSession.photoDeleteMapper.deletePhoto(photoDelete)
+            photoDeleteMapper.deletePhoto(photoDelete)
             // 构建提示语句
             photoDeleteResult.info = "已将用户${photoDelete.user}的${photoDelete.uid}相册删除。"
             true

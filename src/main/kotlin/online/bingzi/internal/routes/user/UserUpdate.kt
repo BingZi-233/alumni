@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.user.UserUpdate
 import online.bingzi.internal.entity.request.user.UserUpdateResult
+import online.bingzi.internal.routes.user.UserSession.userUpdateMapper
 
 /**
  * User update
@@ -33,11 +34,11 @@ fun Route.userUpdate(path: String) {
             this.info = if (result) "校验已结束，全部正确！" else "校验失败，有部分参数不正确！请检查您不正确的参数并进行修正。"
         }
         // 在数据中进行查询该用户是否存在
-        userUpdateResult.result = UserSession.userUpdateMapper.queryUserByUser(userUpdate)?.let {
+        userUpdateResult.result = userUpdateMapper.queryUserByUser(userUpdate)?.let {
             // 存在且校验通过
             if (userUpdateResult.result) {
                 // 更新用户数据
-                UserSession.userUpdateMapper.updateUser(userUpdate)
+                userUpdateMapper.updateUser(userUpdate)
                 // 构建提示语句
                 userUpdateResult.info = "用户${userUpdate.user}的信息已更新。"
                 // 设置最终返回值

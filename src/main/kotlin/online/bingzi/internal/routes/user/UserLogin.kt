@@ -7,6 +7,7 @@ import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.user.UserLogin
 import online.bingzi.internal.entity.request.user.UserLoginResult
 import online.bingzi.internal.plugins.authGetToken
+import online.bingzi.internal.routes.user.UserSession.userLoginMapper
 
 /**
  * Login
@@ -20,7 +21,7 @@ fun Route.userLogin(path: String) {
         // 构建返回对象并对值进行初始化
         val userLoginResult = UserLoginResult(userLogin.user)
         // 在数据库中查询该用户是否存在
-        UserSession.userLoginMapper.queryUserByUser(userLogin)?.let {
+        userLoginMapper.queryUserByUser(userLogin)?.let {
             // 设置返回的token
             userLoginResult.token = authGetToken(userLogin.user)
             // 修改返回值

@@ -6,13 +6,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.photo.PhotoQuery
 import online.bingzi.internal.entity.request.photo.PhotoQueryResult
+import online.bingzi.internal.routes.photo.PhotoSession.photoQueryMapper
 
 fun Route.photoQuery(path: String) {
     post(path) {
         // 将发送过来的JSON进行序列化
         val photoQuery = call.receive(PhotoQuery::class)
         // 从数据库中查询用户名下的相册，并构建List进行返回
-        val photoList = PhotoSession.photoQueryMapper.queryPhotoByUser(photoQuery)
+        val photoList = photoQueryMapper.queryPhotoByUser(photoQuery)
         // 构建返回对象并对值进行初始化
         val photoQueryResult = PhotoQueryResult().apply {
             // 设置用户名

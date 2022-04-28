@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.request.photo.PhotoUpdate
 import online.bingzi.internal.entity.request.photo.PhotoUpdateResult
+import online.bingzi.internal.routes.photo.PhotoSession.photoUpdateMapper
 
 fun Route.photoUpdate(path: String) {
     post(path) {
@@ -21,11 +22,11 @@ fun Route.photoUpdate(path: String) {
             this.photo = photoUpdate.photo.matches("^[a-z\\d\u4e00-\u9fa5]+[^_]\$".toRegex())
         }
         // 在数据库中查询相关行
-        val queryPhotoByUser = PhotoSession.photoUpdateMapper.queryPhotoByUser(photoUpdate)
+        val queryPhotoByUser = photoUpdateMapper.queryPhotoByUser(photoUpdate)
         // 设置最终返回结果
         photoUpdateResult.result = if (queryPhotoByUser != null && photoUpdateResult.photo) { // 需要查询结果不为空且相册名验证通过
             // 对涉及的行进行更新
-            PhotoSession.photoUpdateMapper.updatePhoto(photoUpdate)
+            photoUpdateMapper.updatePhoto(photoUpdate)
             // 设置提示语句
             photoUpdateResult.info = "用户${photoUpdate.user}的${photoUpdate.uid}相册已更名为${photoUpdate.photo}"
             true
