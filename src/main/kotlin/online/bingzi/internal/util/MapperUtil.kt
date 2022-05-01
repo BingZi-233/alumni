@@ -1,5 +1,7 @@
 package online.bingzi.internal.util
 
+import online.bingzi.internal.mapper.photo.PhotoMapper
+import online.bingzi.internal.mapper.user.UserMapper
 import org.apache.ibatis.io.Resources
 import org.apache.ibatis.session.SqlSession
 import org.apache.ibatis.session.SqlSessionFactory
@@ -17,3 +19,15 @@ val openSession: SqlSession by lazy {
     val sessionFactory: SqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream)
     sessionFactory.openSession(true)
 }
+
+/**
+ * User session
+ * 用户路由的MySQL访问入口
+ */
+val userMapper: UserMapper = openSession.getMapper(UserMapper::class.java)
+
+/**
+ * Photo mapper
+ * 相册路由的MySQL访问入口
+ */
+val photoMapper: PhotoMapper = openSession.getMapper(PhotoMapper::class.java)

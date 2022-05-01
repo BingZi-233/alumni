@@ -1,4 +1,4 @@
-package online.bingzi.internal.entity.request.user
+package online.bingzi.internal.entity.user
 
 /**
  * Essentials user data
@@ -55,7 +55,7 @@ data class EssentialsUserData(
      * @return true-合法，false-不合法
      */
     fun hasUserName(username: String? = null): Boolean {
-        val regex = Regex(pattern = "^[a-z\\d\u4e00-\u9fa5]+[^_]\$")
+        val regex = Regex(pattern = "^[a-z\\d\u4e00-\u9fa5]+[^_]{2,15}\$")
         return if (username != null) {
             regex.matches(username)
         } else {

@@ -1,11 +1,11 @@
-package online.bingzi.internal.entity.request.user
+package online.bingzi.internal.entity
 
 /**
- * User
+ * Request
  *
  * @property data 数据体
  * @constructor Create empty User
  */
-data class UserRequest(
+data class ServiceRequest(
     val data: MutableMap<String, String> = mutableMapOf()
 )

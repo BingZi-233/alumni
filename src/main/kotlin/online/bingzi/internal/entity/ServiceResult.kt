@@ -1,15 +1,13 @@
-package online.bingzi.internal.entity.request.user
-
-import online.bingzi.internal.entity.StatusCode
+package online.bingzi.internal.entity
 
 /**
- * User
+ * Result
  *
  * @property statusCode 状态体
  * @property data 数据体
  * @constructor Create empty User
  */
-data class UserResult(
+data class ServiceResult(
     val statusCode: StatusCode = StatusCode(StatusCode.Type.UNKNOWN),
     val data: MutableMap<String, String> = mutableMapOf()
 )
