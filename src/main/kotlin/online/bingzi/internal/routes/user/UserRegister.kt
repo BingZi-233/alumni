@@ -8,7 +8,7 @@ import io.ktor.server.routing.*
 import online.bingzi.internal.entity.ServiceRequest
 import online.bingzi.internal.entity.ServiceResult
 import online.bingzi.internal.entity.StatusCode.Type.*
-import online.bingzi.internal.entity.user.EssentialsUserData
+import online.bingzi.internal.entity.essentials.EssentialsUserData
 import online.bingzi.internal.util.userMapper
 
 /**

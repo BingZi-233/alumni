@@ -1,6 +1,6 @@
 package online.bingzi.internal.mapper.user
 
-import online.bingzi.internal.entity.user.EssentialsUserData
+import online.bingzi.internal.entity.essentials.EssentialsUserData
 
 /**
  * User mapper

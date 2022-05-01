@@ -1,4 +1,4 @@
-package online.bingzi.internal.entity.photo
+package online.bingzi.internal.entity.essentials
 
 /**
  * Essentials photo

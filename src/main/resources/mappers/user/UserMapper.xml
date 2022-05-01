@@ -4,20 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="online.bingzi.internal.mapper.user.UserMapper">
     <!--queryUserByUser(user: String): EssentialsUserData?-->
-    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.user.EssentialsUserData">
+    <select id="queryUserByUser" resultType="online.bingzi.internal.entity.essentials.EssentialsUserData">
         SELECT user, username, password, clazz
         FROM table_user
         WHERE user = #{user};
     </select>
     <!--queryUserByUserAndPassword(user: String, password: String): EssentialsUserData?-->
-    <select id="queryUserByUserAndPassword" resultType="online.bingzi.internal.entity.user.EssentialsUserData">
+    <select id="queryUserByUserAndPassword" resultType="online.bingzi.internal.entity.essentials.EssentialsUserData">
         SELECT user, username, password, clazz
         FROM table_user
         WHERE user = #{user}
           AND password = #{password};
     </select>
     <!--insertUser(essentialsUserData: EssentialsUserData)-->
-    <insert id="insertUser" parameterType="online.bingzi.internal.entity.user.EssentialsUserData">
+    <insert id="insertUser" parameterType="online.bingzi.internal.entity.essentials.EssentialsUserData">
         INSERT INTO table_user VALUE (NULL, #{user}, #{username}, #{password}, #{clazz});
     </insert>
     <!--deleteUserByUser(user: String)-->
@@ -34,7 +34,7 @@
           AND password = #{password};
     </delete>
     <!--updateUser(essentialsUserData: EssentialsUserData)-->
-    <update id="updateUser" parameterType="online.bingzi.internal.entity.user.EssentialsUserData">
+    <update id="updateUser" parameterType="online.bingzi.internal.entity.essentials.EssentialsUserData">
         UPDATE table_user
         SET password=#{password},
             username=#{username},

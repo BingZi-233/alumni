@@ -1,6 +1,6 @@
 package online.bingzi.internal.mapper.photo
 
-import online.bingzi.internal.entity.photo.EssentialsPhotoData
+import online.bingzi.internal.entity.essentials.EssentialsPhotoData
 
 /**
  * Photo create mapper

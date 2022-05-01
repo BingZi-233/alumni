@@ -1,4 +1,4 @@
-package online.bingzi.internal.entity.user
+package online.bingzi.internal.entity.essentials
 
 /**
  * Essentials user data
