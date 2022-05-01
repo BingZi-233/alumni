@@ -1,12 +1,14 @@
 package online.bingzi.internal.routes.user
 
+import com.alibaba.fastjson2.JSONObject
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.entity.request.user.UserRegister
-import online.bingzi.internal.entity.request.user.UserRegisterResult
-import online.bingzi.internal.routes.user.UserSession.userRegisterMapper
+import online.bingzi.internal.entity.StatusCode.Type.*
+import online.bingzi.internal.entity.request.user.EssentialsUserData
+import online.bingzi.internal.entity.request.user.UserRequest
+import online.bingzi.internal.entity.request.user.UserResult
 
 /**
  * Register
@@ -16,34 +18,41 @@ import online.bingzi.internal.routes.user.UserSession.userRegisterMapper
  */
 fun Route.userRegister(path: String) {
     post(path) {
-        // 将发送过来的JSON进行序列化
-        val userRegister = call.receive(UserRegister::class)
-        // 构建返回对象并对值进行初始化
-        val userRegisterResult = UserRegisterResult().apply {
-            // 正则校验账户名是否合法
-            this.user = userRegister.user.matches("^[a-zA-Z\\d_-]{2,15}$".toRegex())
-            // 正则校验昵称是否合法
-            this.username = userRegister.username.matches("^[a-z\\d\u4e00-\u9fa5]+[^_]\$".toRegex())
-            // 正则校验密码是否合法
-            this.password = userRegister.password.matches("^(?!\\d+\$)(?![a-zA-Z]+\$)[\\dA-Za-z]{6,15}\$".toRegex())
-            // 正则校验班级是否合法
-            this.clazz = userRegister.clazz.matches("^[a-zA-Z\\d_-]{2,15}\$".toRegex())
-            // 根据上面判断返回值，此刻并不是最终返回值
-            this.result = user && username && password && clazz
-            // 构建提示语句
-            this.info = if (result) "校验已结束，全部正确！该数据已插入到数据库中。" else "校验失败，有部分参数不正确！请检查您不正确的参数并进行修正。"
+        // 接收数据并将其进行序列化
+        val userRequest = call.receive(UserRequest::class)
+        // 预构建返回数据
+        val userResult = UserResult()
+        // 将从userRequest获取到的数据再次序列化
+        val essentialsUserData = JSONObject.parseObject(userRequest.data.toString(), EssentialsUserData::class.java)
+        // 在数据库中查询该账户是否被注册
+        userMapper.queryUserByUser(essentialsUserData.user)?.let {
+            // 如果查询到了该用户，则状态码变更为警告
+            userResult.statusCode.code = WARING
         }
-        // 判断检验是否通过
-        if (userRegisterResult.result) {
-            // 在数据库中查询该用户是否存在
-            userRegisterMapper.queryUserByUser(userRegister.user)?.let {
-                // 用户存在，更改返回值
-                userRegisterResult.result = false
-                // 构建提示语句
-                userRegisterResult.info = "校验失败，该用户名已存在！"
-            } ?: userRegisterMapper.insertUser(userRegister) // 用户不存在，将该用户数据插入到数据库中
+        // 校验用户数据以及是否在数据库中查询到该用户，并设置状态值
+        userResult.statusCode.code =
+            if (userResult.statusCode.code != WARING) { // 该用户已在数据中被注册
+                if (essentialsUserData.hasLegitimate()) { // 用户数据校验是否通过
+                    // 将该用户插入到数据库中保存
+                    userMapper.insertUser(essentialsUserData)
+                    // 返回成功状态码
+                    OK
+                } else {
+                    // 返回警告状态码
+                    WARING
+                }
+            } else {
+                // 返回错误状态码
+                ERROR
+            }
+        // 设置返回信息
+        userResult.statusCode.message = when (userResult.statusCode.code) {
+            OK -> "验证通过，该用户已更新至数据库中！"
+            ERROR -> "验证失败，数据库中已存在该用户。"
+            WARING -> "验证失败，该用户数据校验未通过。"
+            UNKNOWN -> "未知错误，程序或已离线！"
         }
-        // 返回实体并自动转化为JSON类型返回
-        call.respond(userRegisterResult)
+        // 对请求进行响应
+        call.respond(userResult)
     }
 }

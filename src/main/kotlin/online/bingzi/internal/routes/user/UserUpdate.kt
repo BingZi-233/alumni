@@ -1,12 +1,14 @@
 package online.bingzi.internal.routes.user
 
+import com.alibaba.fastjson2.JSONObject
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.entity.request.user.UserUpdate
-import online.bingzi.internal.entity.request.user.UserUpdateResult
-import online.bingzi.internal.routes.user.UserSession.userUpdateMapper
+import online.bingzi.internal.entity.StatusCode.Type.*
+import online.bingzi.internal.entity.request.user.EssentialsUserData
+import online.bingzi.internal.entity.request.user.UserRequest
+import online.bingzi.internal.entity.request.user.UserResult
 
 /**
  * User update
@@ -16,39 +18,38 @@ import online.bingzi.internal.routes.user.UserSession.userUpdateMapper
  */
 fun Route.userUpdate(path: String) {
     post(path) {
-        // 将发送过来的JSON进行序列化
-        val userUpdate = call.receive(UserUpdate::class)
-        // 构建返回对象并对值进行初始化
-        val userUpdateResult = UserUpdateResult().apply {
-            // 正则校验账户名是否合法
-            this.user = userUpdate.user.matches("^[a-zA-Z\\d_-]{2,15}$".toRegex())
-            // 正则校验昵称是否合法
-            this.username = userUpdate.username.matches("^[a-z\\d\u4e00-\u9fa5]+[^_]\$".toRegex())
-            // 正则校验密码是否合法
-            this.password = userUpdate.password.matches("^(?!\\d+\$)(?![a-zA-Z]+\$)[\\dA-Za-z]{6,15}\$".toRegex())
-            // 正则校验班级是否合法
-            this.clazz = userUpdate.clazz.matches("^[a-zA-Z\\d_-]{2,15}\$".toRegex())
-            // 根据上面判断返回值，此刻并不是最终返回值
-            this.result = user && username && password && clazz
-            // 构建提示语句
-            this.info = if (result) "校验已结束，全部正确！" else "校验失败，有部分参数不正确！请检查您不正确的参数并进行修正。"
-        }
-        // 在数据中进行查询该用户是否存在
-        userUpdateResult.result = userUpdateMapper.queryUserByUser(userUpdate)?.let {
-            // 存在且校验通过
-            if (userUpdateResult.result) {
-                // 更新用户数据
-                userUpdateMapper.updateUser(userUpdate)
-                // 构建提示语句
-                userUpdateResult.info = "用户${userUpdate.user}的信息已更新。"
-                // 设置最终返回值
-                true
+        // 接收数据并将其进行序列化
+        val userRequest = call.receive(UserRequest::class)
+        // 预构建返回数据
+        val userResult = UserResult()
+        // 将从userRequest获取到的数据再次序列化
+        val essentialsUserData = JSONObject.parseObject(userRequest.data.toString(), EssentialsUserData::class.java)
+        // 在数据库中查询该账户是否存在
+        val queryUserByUser = userMapper.queryUserByUser(essentialsUserData.user)
+        // 校验用户数据以及是否在数据库中查询到该用户，并设置状态值
+        userResult.statusCode.code =
+            if (queryUserByUser != null) { // 查询到用户
+                if (essentialsUserData.hasLegitimate()) { // 用户数据校验通过
+                    // 更新数据库中的数据
+                    userMapper.updateUser(essentialsUserData)
+                    // 返回完成状态码
+                    OK
+                } else {
+                    // 返回警告状态码
+                    WARING
+                }
             } else {
-                // 校验未通过，设置最终返回结果
-                false
+                // 返回错误状态码
+                ERROR
             }
-        } ?: false // 数据库中不存在该用户，设置最终返回结果
-        // 返回实体并自动转化为JSON类型返回
-        call.respond(userUpdateResult)
+        // 设置返回信息
+        userResult.statusCode.message = when (userResult.statusCode.code) {
+            OK -> "验证成功，用户资料已经更新！"
+            ERROR -> "验证失败，该用户不存在。"
+            WARING -> "验证失败，该用户校验未通过。"
+            UNKNOWN -> "未知错误，程序或已离线。"
+        }
+        // 对请求进行响应
+        call.respond(userResult)
     }
 }

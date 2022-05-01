@@ -1,12 +1,14 @@
 package online.bingzi.internal.routes.user
 
+import com.alibaba.fastjson2.JSONObject
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.entity.request.user.UserUnRegister
-import online.bingzi.internal.entity.request.user.UserUnRegisterResult
-import online.bingzi.internal.routes.user.UserSession.userUnRegisterMapper
+import online.bingzi.internal.entity.StatusCode.Type.*
+import online.bingzi.internal.entity.request.user.EssentialsUserData
+import online.bingzi.internal.entity.request.user.UserRequest
+import online.bingzi.internal.entity.request.user.UserResult
 
 /**
  * Unregister
@@ -16,20 +18,33 @@ import online.bingzi.internal.routes.user.UserSession.userUnRegisterMapper
  */
 fun Route.userUnRegister(path: String) {
     post(path) {
-        // 将发送过来的JSON进行序列化
-        val userUnRegister = call.receive(UserUnRegister::class)
-        // 预构建返回对象，已指定用户名
-        val userUnRegisterResult = UserUnRegisterResult(userUnRegister.user)
-        // 在数据库中查询该用户（用户和密码均匹配），并设置返回对象的返回值
-        userUnRegisterResult.result = userUnRegisterMapper.queryUserByUser(userUnRegister)?.let {
-            // 已查到符合的行，对其进行删除
-            userUnRegisterMapper.deleteUser(userUnRegister)
-            // 构建提示语句
-            userUnRegisterResult.info = "账户${userUnRegister.user}已被删除"
-            // 返回值设置为真
-            true
-        } ?: false // 为查询到符合对象，返回值设置为假
-        // 返回实体并自动转化为JSON类型返回
-        call.respond(userUnRegisterResult)
+        // 接收数据并将其进行序列化
+        val userRequest = call.receive(UserRequest::class)
+        // 预构建返回数据
+        val userResult = UserResult()
+        // 将从userRequest获取到的数据再次序列化
+        val essentialsUserData = JSONObject.parseObject(userRequest.data.toString(), EssentialsUserData::class.java)
+        // 在数据库中查询该账户是否存在
+        val queryUserByUserAndPassword = userMapper.queryUserByUserAndPassword(essentialsUserData.user, essentialsUserData.password)
+        // 校验用户数据以及是否在数据库中查询到该用户，并设置状态值
+        userResult.statusCode.code =
+            if (queryUserByUserAndPassword != null) { // 用户不存在，可能是用户名或者密码不正确导致的
+                // 将该用户从数据库中进行删除
+                userMapper.deleteUserByUserAndPassword(essentialsUserData.user, essentialsUserData.password)
+                // 返回成功状态码
+                OK
+            } else {
+                // 返回错误状态码
+                ERROR
+            }
+        // 设置返回信息
+        userResult.statusCode.message = when (userResult.statusCode.code) {
+            OK -> "验证通过，该账户已删除。"
+            ERROR -> "验证失败，该账户不存在。"
+            WARING -> "验证失败，该账户或密码错误。"
+            UNKNOWN -> "未知错误，程序或已离线！"
+        }
+        // 对请求进行响应
+        call.respond(userResult)
     }
 }

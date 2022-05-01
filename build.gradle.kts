@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "online.bingzi"
-version = "0.0.8"
+version = "0.0.11"
 application {
     mainClass.set("online.bingzi.ApplicationKt")
     val isDevelopment: Boolean = project.ext.has("development")
@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.alibaba.fastjson2:fastjson2:2.0.1")
     implementation("mysql:mysql-connector-java:8.0.28")
     implementation("org.mybatis:mybatis:$mybatis_version")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
