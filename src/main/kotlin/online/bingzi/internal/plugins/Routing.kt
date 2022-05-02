@@ -3,7 +3,7 @@ package online.bingzi.internal.plugins
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.routes.messageBoard.messageBoardDelete
+import online.bingzi.internal.routes.messageBoard.messageBoardInsert
 import online.bingzi.internal.routes.messageBoard.messageBoardQuery
 import online.bingzi.internal.routes.messageBoard.messageBoardUpdate
 import online.bingzi.internal.routes.photo.*
@@ -39,7 +39,7 @@ fun Application.configureRouting() {
                 }
                 // 留言板
                 route("/messageboard") {
-                    messageBoardDelete("/delete")
+                    messageBoardInsert("/insert")
                     messageBoardUpdate("/update")
                     messageBoardQuery("/query")
                 }
