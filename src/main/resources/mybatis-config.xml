@@ -16,10 +16,6 @@
     </environments>
     <mappers>
         <mapper resource="mappers/user/UserMapper.xml"/>
-        <mapper resource="mappers/photo/PhotoCreateMapper.xml"/>
-        <mapper resource="mappers/photo/PhotoDeleteMapper.xml"/>
-        <mapper resource="mappers/photo/PhotoQueryMapper.xml"/>
-        <mapper resource="mappers/photo/PhotoUpdateMapper.xml"/>
-        <mapper resource="mappers/photo/PhotoImageMapper.xml"/>
+        <mapper resource="mappers/photo/PhotoMapper.xml"/>
     </mappers>
 </configuration>
