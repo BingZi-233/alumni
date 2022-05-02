@@ -1,4 +1,4 @@
-package online.bingzi.internal.mapper.photo
+package online.bingzi.internal.mapper
 
 import online.bingzi.internal.entity.essentials.EssentialsPhotoData
 

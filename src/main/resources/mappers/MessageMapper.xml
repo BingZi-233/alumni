@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="online.bingzi.internal.mapper.MessageMapper">
+    <!--fun queryMessageByUser(user: String): EssentialsMessageBoardData?-->
+    <select id="queryMessageByUser" resultType="online.bingzi.internal.entity.essentials.EssentialsMessageBoardData">
+        SELECT user, type, message
+        FROM table_message
+        WHERE user = #{user}
+          AND type = 1;
+    </select>
+    <!--fun queryMessageByClazz(clazz: String): EssentialsMessageBoardData?-->
+    <select id="queryMessageByClazz" resultType="online.bingzi.internal.entity.essentials.EssentialsMessageBoardData">
+        SELECT user, type, message
+        FROM table_message
+        WHERE user = #{clazz}
+          AND type = 0;
+    </select>
+    <!--fun insertMessageByUser(essentialsMessageBoardData: EssentialsMessageBoardData)-->
+    <insert id="insertMessageByUser" parameterType="online.bingzi.internal.entity.essentials.EssentialsMessageBoardData">
+        INSERT INTO table_message(user, type, message) VALUE (#{user}, 1, #{message})
+    </insert>
+    <!--fun insertMessageByClazz(essentialsMessageBoardData: EssentialsMessageBoardData)-->
+    <insert id="insertMessageByClazz" parameterType="online.bingzi.internal.entity.essentials.EssentialsMessageBoardData">
+        INSERT INTO table_message(user, type, message) VALUE (#{user}, 0, #{message})
+    </insert>
+    <!--fun updateMessageByUser(message: String,user: String)-->
+    <update id="updateMessageByUser">
+        UPDATE table_message
+        SET message=#{message}
+        WHERE user = #{user}
+          AND type = 1
+    </update>
+    <!--fun updateMessageByClazz(message: String,user: String)-->
+    <update id="updateMessageByClazz">
+        UPDATE table_message
+        SET message=#{message}
+        WHERE user = #{user}
+          AND type = 0
+    </update>
+</mapper>

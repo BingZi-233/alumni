@@ -1,4 +1,4 @@
-package online.bingzi.internal.mapper.user
+package online.bingzi.internal.mapper
 
 import online.bingzi.internal.entity.essentials.EssentialsUserData
 

@@ -1,7 +1,8 @@
 package online.bingzi.internal.util
 
-import online.bingzi.internal.mapper.photo.PhotoMapper
-import online.bingzi.internal.mapper.user.UserMapper
+import online.bingzi.internal.mapper.MessageMapper
+import online.bingzi.internal.mapper.PhotoMapper
+import online.bingzi.internal.mapper.UserMapper
 import org.apache.ibatis.io.Resources
 import org.apache.ibatis.session.SqlSession
 import org.apache.ibatis.session.SqlSessionFactory
@@ -31,3 +32,9 @@ val userMapper: UserMapper = openSession.getMapper(UserMapper::class.java)
  * 相册路由的MySQL访问入口
  */
 val photoMapper: PhotoMapper = openSession.getMapper(PhotoMapper::class.java)
+
+/**
+ * Message mapper
+ * 留言板路由的MySQL访问入口
+ */
+val messageMapper: MessageMapper = openSession.getMapper(MessageMapper::class.java)

@@ -13,6 +13,7 @@ fun Route.messageBoardQuery(path: String) {
         val serviceRequest = call.receive(ServiceRequest::class)
         // 预构建返回数据
         val serviceResult = ServiceResult()
+        val user = serviceRequest.data["user"]
         // 对请求进行响应
         call.respond(serviceResult)
     }
