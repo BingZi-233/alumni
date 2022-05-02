@@ -7,6 +7,7 @@ package online.bingzi.internal.entity
  * @property data 数据体
  * @constructor Create empty User
  */
+@kotlinx.serialization.Serializable
 data class ServiceResult(
     val statusCode: StatusCode = StatusCode(StatusCode.Type.UNKNOWN),
     val data: MutableMap<String, String> = mutableMapOf()
