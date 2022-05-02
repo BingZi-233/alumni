@@ -18,7 +18,7 @@
     </select>
     <!--insertUser(essentialsUserData: EssentialsUserData)-->
     <insert id="insertUser" parameterType="online.bingzi.internal.entity.essentials.EssentialsUserData">
-        INSERT INTO table_user VALUE (NULL, #{user}, #{username}, #{password}, #{clazz});
+        INSERT INTO table_user(user, username, password, clazz) VALUE (#{user}, #{username}, #{password}, #{clazz});
     </insert>
     <!--deleteUserByUser(user: String)-->
     <delete id="deleteUserByUser">
@@ -39,6 +39,6 @@
         SET password=#{password},
             username=#{username},
             clazz=#{clazz}
-        where user = #{user};
+        WHERE user = #{user};
     </update>
 </mapper>

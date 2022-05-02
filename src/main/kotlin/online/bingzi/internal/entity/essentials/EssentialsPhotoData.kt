@@ -1,5 +1,7 @@
 package online.bingzi.internal.entity.essentials
 
+import java.util.*
+
 /**
  * Essentials photo
  *
@@ -11,10 +13,10 @@ package online.bingzi.internal.entity.essentials
  */
 @kotlinx.serialization.Serializable
 data class EssentialsPhotoData(
-    val user: String,
-    val photo: String,
-    val uid: String,
-    val image: MutableList<String> = mutableListOf(),
+    var user: String = "",
+    var photo: String = "",
+    var uid: String = UUID.randomUUID().toString(),
+    var image: MutableList<String> = mutableListOf(),
 ) {
     /**
      * Has user

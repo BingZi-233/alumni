@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.google.code.gson:gson:2.9.0")
     implementation("com.alibaba.fastjson2:fastjson2:2.0.1")
     implementation("mysql:mysql-connector-java:8.0.28")
     implementation("org.mybatis:mybatis:$mybatis_version")
