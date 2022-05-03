@@ -27,15 +27,15 @@ fun Route.messageBoardUpdate(path: String) {
                 when (type.toIntOrNull() ?: 1) {
                     0 -> {
                         messageMapper.queryMessageByClazz(user)?.let {
-                            it.message.addAll(messageDataList)
-                            messageMapper.updateMessageByClazz(gson.toJson(it.message), user)
+                            val addAll = JSONArray.of(it.message).toJavaList(MessageData::class.java).addAll(messageDataList)
+                            messageMapper.updateMessageByClazz(gson.toJson(addAll), user)
                             OK
                         } ?: ERROR
                     }
                     1 -> {
                         messageMapper.queryMessageByUser(user)?.let {
-                            it.message.addAll(messageDataList)
-                            messageMapper.updateMessageByUser(gson.toJson(it.message), user)
+                            val addAll = JSONArray.of(it.message).toJavaList(MessageData::class.java).addAll(messageDataList)
+                            messageMapper.updateMessageByUser(gson.toJson(addAll), user)
                             OK
                         } ?: ERROR
                     }

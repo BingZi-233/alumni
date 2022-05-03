@@ -7,7 +7,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import online.bingzi.internal.entity.ServiceRequest
 import online.bingzi.internal.entity.ServiceResult
-import online.bingzi.internal.entity.StatusCode
+import online.bingzi.internal.entity.StatusCode.Type.*
 import online.bingzi.internal.entity.record.RecordData
 import online.bingzi.internal.util.gson
 import online.bingzi.internal.util.recordMapper
@@ -26,24 +26,24 @@ fun Route.recordUpdate(path: String) {
                 val recordDataList = JSONArray.of(record).toJavaList(RecordData::class.java)
                 val queryRecordByUser = recordMapper.queryRecordByUser(user)
                 if (queryRecordByUser != null) {
-                    queryRecordByUser.data.addAll(recordDataList)
+                    queryRecordByUser.addDataList(recordDataList)
                     recordMapper.updateRecordByUser(user, gson.toJson(queryRecordByUser.data))
-                    StatusCode.Type.OK
+                    OK
                 } else {
-                    StatusCode.Type.ERROR
+                    ERROR
                 }
             } catch (e: Exception) {
-                StatusCode.Type.ERROR
+                ERROR
             }
         } else {
-            StatusCode.Type.WARING
+            WARING
         }
         // 设置返回信息
         serviceResult.statusCode.message = when (serviceResult.statusCode.code) {
-            StatusCode.Type.OK -> "校验通过，相册已创建！"
-            StatusCode.Type.ERROR -> "校验失败，参数留空！"
-            StatusCode.Type.WARING -> "校验失败，相册达到上限或参数格式错误！"
-            StatusCode.Type.UNKNOWN -> "未知错误，程序或已离线！"
+            OK -> "校验通过，相册已创建！"
+            ERROR -> "校验失败，参数留空！"
+            WARING -> "校验失败，相册达到上限或参数格式错误！"
+            UNKNOWN -> "未知错误，程序或已离线！"
         }
         // 对请求进行响应
         call.respond(serviceResult)

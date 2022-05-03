@@ -1,6 +1,5 @@
 package online.bingzi.internal.routes.messageBoard
 
-import com.alibaba.fastjson2.JSONArray
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -9,7 +8,6 @@ import online.bingzi.internal.entity.ServiceRequest
 import online.bingzi.internal.entity.ServiceResult
 import online.bingzi.internal.entity.StatusCode.Type.*
 import online.bingzi.internal.entity.essentials.EssentialsMessageBoardData
-import online.bingzi.internal.entity.message.MessageData
 import online.bingzi.internal.util.messageMapper
 
 fun Route.messageBoardInsert(path: String) {
@@ -22,18 +20,15 @@ fun Route.messageBoardInsert(path: String) {
         val user = serviceRequest.data["user"]
         // 获取类型
         val type = serviceRequest.data["type"]
-        // 获取更新内容
-        val message = serviceRequest.data["message"]
-        serviceResult.statusCode.code = if (user != null && type != null && message != null) {
+        serviceResult.statusCode.code = if (user != null && type != null) {
             try {
-                val messageDataList = JSONArray.of(message).toJavaList(MessageData::class.java)
                 when (type.toIntOrNull() ?: 1) {
                     0 -> {
-                        messageMapper.insertMessageByClazz(EssentialsMessageBoardData(user, 0, messageDataList))
+                        messageMapper.insertMessageByClazz(EssentialsMessageBoardData(user, 0))
                         OK
                     }
                     1 -> {
-                        messageMapper.insertMessageByUser(EssentialsMessageBoardData(user, 1, messageDataList))
+                        messageMapper.insertMessageByUser(EssentialsMessageBoardData(user, 1))
                         OK
                     }
                     else -> ERROR

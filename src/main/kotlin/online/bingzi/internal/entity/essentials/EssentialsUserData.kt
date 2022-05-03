@@ -55,7 +55,7 @@ data class EssentialsUserData(
      * @return true-合法，false-不合法
      */
     fun hasUserName(username: String? = null): Boolean {
-        val regex = Regex(pattern = "^[a-z\\d\u4e00-\u9fa5]+[^_]{2,15}\$")
+        val regex = Regex(pattern = "^[\u4e00-\u9fa5]{2,4}\$")
         return if (username != null) {
             regex.matches(username)
         } else {

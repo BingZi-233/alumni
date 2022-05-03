@@ -22,11 +22,9 @@ interface UserMapper {
      * Query user by user and password
      * 根据账户和密码查询用户
      *
-     * @param user 账户
-     * @param password 密码
      * @return 用户基础数据
      */
-    fun queryUserByUserAndPassword(user: String, password: String): EssentialsUserData?
+    fun queryUserByUserAndPassword(map: HashMap<String, Any>): EssentialsUserData?
 
     /**
      * Insert user
@@ -48,10 +46,8 @@ interface UserMapper {
      * Delete user by user and password
      * 根据账户和密码删除用户
      *
-     * @param user 账户
-     * @param password 密码
      */
-    fun deleteUserByUserAndPassword(user: String, password: String)
+    fun deleteUserByUserAndPassword(map: HashMap<String, Any>)
 
     /**
      * Update user

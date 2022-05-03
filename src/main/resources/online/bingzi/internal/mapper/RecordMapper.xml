@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="online.bingzi.internal.mapper.RecordMapper">
     <!--fun queryRecordByUser(user: String): EssentialsRecordData?-->
-    <select id="queryRecordByUser" resultType="online.bingzi.internal.entity.essentials.EssentialsRecordData">
+    <select id="queryRecordByUser" resultType="EssentialsRecordData">
         SELECT user, data
         FROM table_record
         WHERE user = #{user};
     </select>
     <!--fun insertRecordByUser(essentialsRecordData: EssentialsRecordData)-->
-    <insert id="insertRecordByUser" parameterType="online.bingzi.internal.entity.essentials.EssentialsRecordData">
+    <insert id="insertRecordByUser" parameterType="EssentialsRecordData">
         INSERT INTO table_record(user, data) value (#{user}, #{data});
     </insert>
     <!--fun deleteRecordByUser(user: String)-->

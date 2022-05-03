@@ -1,5 +1,7 @@
 package online.bingzi.internal.entity.essentials
 
+import com.alibaba.fastjson2.JSONArray
+import online.bingzi.internal.util.gson
 import java.util.*
 
 /**
@@ -16,7 +18,7 @@ data class EssentialsPhotoData(
     var user: String = "",
     var photo: String = "",
     var uid: String = UUID.randomUUID().toString(),
-    var image: MutableList<String> = mutableListOf(),
+    var image: String = "",
 ) {
     /**
      * Has user
@@ -41,7 +43,7 @@ data class EssentialsPhotoData(
      * @return true-合法，false-不合法
      */
     fun hasPhoto(photo: String? = null): Boolean {
-        val regex = Regex(pattern = "^[a-z\\d\u4e00-\u9fa5]+[^_]{2,15}\$")
+        val regex = Regex(pattern = "^[\u4e00-\u9fa5]{1,6}\$")
         return if (photo != null) {
             regex.matches(photo)
         } else {
@@ -57,5 +59,29 @@ data class EssentialsPhotoData(
      */
     fun hasLegitimate(user: String? = null, password: String? = null, username: String? = null, clazz: String? = null): Boolean {
         return hasUser(user) && hasPhoto()
+    }
+
+    fun getImageList(): MutableList<String> {
+        return try {
+            JSONArray.of(image).toJavaList(String::class.java)
+        } catch (e: Exception) {
+            mutableListOf()
+        }
+    }
+
+    fun setImageList(imageList: MutableList<String>) {
+        this.image = gson.toJson(imageList)
+    }
+
+    fun addImageList(imageList: MutableList<String>) {
+        val stringMutableList = getImageList()
+        stringMutableList.addAll(imageList)
+        setImageList(stringMutableList)
+    }
+
+    fun deleteImageList(imageList: MutableList<String>) {
+        val stringMutableList = getImageList()
+        stringMutableList.removeAll(imageList)
+        setImageList(stringMutableList)
     }
 }

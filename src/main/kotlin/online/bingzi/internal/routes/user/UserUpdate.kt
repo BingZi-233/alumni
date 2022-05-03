@@ -1,6 +1,5 @@
 package online.bingzi.internal.routes.user
 
-import com.alibaba.fastjson2.JSONObject
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -9,6 +8,7 @@ import online.bingzi.internal.entity.ServiceRequest
 import online.bingzi.internal.entity.ServiceResult
 import online.bingzi.internal.entity.StatusCode.Type.*
 import online.bingzi.internal.entity.essentials.EssentialsUserData
+import online.bingzi.internal.util.gson
 import online.bingzi.internal.util.userMapper
 
 /**
@@ -24,12 +24,16 @@ fun Route.userUpdate(path: String) {
         // 预构建返回数据
         val serviceResult = ServiceResult()
         // 将从userRequest获取到的数据再次序列化
-        val essentialsUserData = JSONObject.parseObject(serviceRequest.data.toString(), EssentialsUserData::class.java)
+        val essentialsUserData = gson.fromJson(serviceRequest.data.toString(), EssentialsUserData::class.java)
         // 在数据库中查询该账户是否存在
         val queryUserByUser = userMapper.queryUserByUser(essentialsUserData.user)
         // 校验用户数据以及是否在数据库中查询到该用户，并设置状态值
         serviceResult.statusCode.code =
             if (queryUserByUser != null) { // 查询到用户
+                serviceResult.data["user"] = essentialsUserData.hasUser().toString()
+                serviceResult.data["password"] = essentialsUserData.hasPassword().toString()
+                serviceResult.data["username"] = essentialsUserData.hasUserName().toString()
+                serviceResult.data["clazz"] = essentialsUserData.hasClazz().toString()
                 if (essentialsUserData.hasLegitimate()) { // 用户数据校验通过
                     // 更新数据库中的数据
                     userMapper.updateUser(essentialsUserData)

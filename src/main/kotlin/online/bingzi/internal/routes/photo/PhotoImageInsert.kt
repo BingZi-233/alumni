@@ -1,6 +1,5 @@
 package online.bingzi.internal.routes.photo
 
-import com.alibaba.fastjson2.JSONArray
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -8,6 +7,7 @@ import io.ktor.server.routing.*
 import online.bingzi.internal.entity.ServiceRequest
 import online.bingzi.internal.entity.ServiceResult
 import online.bingzi.internal.entity.StatusCode.Type.*
+import online.bingzi.internal.util.gson
 import online.bingzi.internal.util.photoMapper
 
 
@@ -26,16 +26,18 @@ fun Route.photoImageInsert(path: String) {
             // 这里进行了异常捕捉，因为JSONArray在序列化的时候可能引发异常导致无法正常返回数据。
             try {
                 // 将照片更新列表进行序列化
-                val imageUpdateList = JSONArray.of(image).toJavaList(String::class.java)
+//                val imageUpdateList = JSONArray.of(image).toJavaList(String::class.java)
+                val imageUpdateList = gson.fromJson(image, MutableList::class.java) as MutableList<String>
                 // 从数据库中获取该相册中照片数据并在追加后返回一个包含照片更新列表的列表
-                val allImageList = photoMapper.queryPhotoByUid(uid)?.let {
+                photoMapper.queryPhotoByUid(uid)?.let {
                     // 对照片列表进行追加操作
-                    it.image.addAll(imageUpdateList)
-                    // 返回包含照片更新列表的所有列表
-                    it.image
+                    it.addImageList(imageUpdateList)
+                    // 在数据库中进行回写更新
+                    photoMapper.updatePhotoFine(hashMapOf<String, String>().apply {
+                        this["uid"] = uid
+                        this["image"] = it.image
+                    })
                 } ?: Exception("") // 如果为空直接引发异常，由上层异常捕捉进行处理
-                // 在数据库中进行回写更新
-                photoMapper.updatePhotoFine(uid, allImageList.toString())
                 // 返回成功状态码
                 OK
             } catch (e: Exception) {

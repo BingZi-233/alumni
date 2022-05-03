@@ -28,7 +28,10 @@ fun Route.userLogin(path: String) {
         // 账户和密码为空校验，并设置状态码
         serviceResult.statusCode.code = if (user != null && password != null) {
             // 在数据库中查询相关行，并设置状态体
-            userMapper.queryUserByUserAndPassword(user, password)?.let {
+            userMapper.queryUserByUserAndPassword(hashMapOf<String, Any>().apply {
+                this["user"] = user
+                this["password"] = password
+            })?.let {
                 // 在data中附加token作为安全令牌
                 serviceResult.data["token"] = authGetToken(user)
                 // 返回成功状态码

@@ -18,7 +18,7 @@ fun Route.photoUpdate(path: String) {
         // 获取相册UID
         val uid = serviceRequest.data["uid"]
         // 获取照片更新列表
-        val photo = serviceResult.data["photo"]
+        val photo = serviceRequest.data["photo"]
         // 校验相册UID和照片更新列表参数是否为空，并设置状态值
         serviceResult.statusCode.code = if (uid != null && photo != null) {
             // 从数据库中获取该相册中照片数据并在追加后返回一个包含照片更新列表的列表
@@ -34,6 +34,8 @@ fun Route.photoUpdate(path: String) {
             // 返回警告状态码
             WARING
         }
+        serviceResult.data["uid"] = uid ?: "null"
+        serviceResult.data["photo"] = photo ?: "null"
         // 设置返回信息
         serviceResult.statusCode.message = when (serviceResult.statusCode.code) {
             OK -> "校验通过，相册数据已更新！"

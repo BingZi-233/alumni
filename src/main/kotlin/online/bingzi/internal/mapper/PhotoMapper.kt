@@ -63,8 +63,6 @@ interface PhotoMapper {
      * Update photo fine
      * 更新相册-精细
      *
-     * @param uid 相册UID
-     * @param image 图像列表
      */
-    fun updatePhotoFine(uid: String, image: String)
+    fun updatePhotoFine(map: HashMap<String, String>)
 }

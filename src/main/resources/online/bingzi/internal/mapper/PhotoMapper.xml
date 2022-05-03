@@ -4,36 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="online.bingzi.internal.mapper.PhotoMapper">
     <!--fun queryPhotoByPhoto(uid: String): EssentialsPhotoData?-->
-    <select id="queryPhotoByUid" resultType="online.bingzi.internal.entity.essentials.EssentialsPhotoData">
+    <select id="queryPhotoByUid" resultType="EssentialsPhotoData">
         SELECT user, photo, uid, image
         FROM table_photo
         WHERE uid = #{uid};
     </select>
     <!--fun queryPhotoByUser(user: String): List<EssentialsPhotoData>-->
-    <select id="queryPhotoByUser" resultType="online.bingzi.internal.entity.essentials.EssentialsPhotoData">
+    <select id="queryPhotoByUser" resultType="EssentialsPhotoData">
         SELECT user, photo, uid, image
         FROM table_photo
         WHERE user = #{user};
     </select>
     <!--fun queryPhotoByUserAndPhoto(uid: String, user: String): EssentialsPhotoData?-->
-    <select id="queryPhotoByUserAndUid" resultType="online.bingzi.internal.entity.essentials.EssentialsPhotoData">
+    <select id="queryPhotoByUserAndUid" resultType="EssentialsPhotoData">
         SELECT user, photo, uid, image
         FROM table_photo
         WHERE uid = #{uid}
           AND user = #{user};
     </select>
     <!--fun insertPhoto(essentialsPhotoData: EssentialsPhotoData)-->
-    <insert id="insertPhoto" parameterType="online.bingzi.internal.entity.essentials.EssentialsPhotoData">
+    <insert id="insertPhoto" parameterType="essentialsPhotoData">
         INSERT INTO table_photo(user, photo, uid, image) VALUE (#{user}, #{photo}, #{uid}, #{image});
     </insert>
     <!--fun deletePhoto(essentialsPhotoData: EssentialsPhotoData)-->
-    <delete id="deletePhoto" parameterType="online.bingzi.internal.entity.essentials.EssentialsPhotoData">
+    <delete id="deletePhoto" parameterType="EssentialsPhotoData">
         DELETE
         FROM table_photo
         WHERE uid = #{uid};
     </delete>
     <!--fun updatePhoto(essentialsPhotoData: EssentialsPhotoData)-->
-    <update id="updatePhoto" parameterType="online.bingzi.internal.entity.essentials.EssentialsPhotoData">
+    <update id="updatePhoto" parameterType="EssentialsPhotoData">
         UPDATE table_photo
         SET photo=#{photo},
             image=#{image}

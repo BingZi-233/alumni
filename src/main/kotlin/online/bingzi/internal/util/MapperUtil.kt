@@ -17,7 +17,7 @@ import java.io.InputStream
  */
 val openSession: SqlSession by lazy {
     val resourceAsStream: InputStream = Resources.getResourceAsStream("mybatis-config.xml")
-    val sqlSessionFactoryBuilder: SqlSessionFactoryBuilder = SqlSessionFactoryBuilder()
+    val sqlSessionFactoryBuilder = SqlSessionFactoryBuilder()
     val sessionFactory: SqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream)
     sessionFactory.openSession(true)
 }

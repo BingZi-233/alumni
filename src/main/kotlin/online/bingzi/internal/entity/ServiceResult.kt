@@ -10,5 +10,5 @@ package online.bingzi.internal.entity
 @kotlinx.serialization.Serializable
 data class ServiceResult(
     val statusCode: StatusCode = StatusCode(StatusCode.Type.UNKNOWN),
-    val data: MutableMap<String, String> = mutableMapOf()
+    val data: MutableMap<String, String> = mutableMapOf(),
 )
