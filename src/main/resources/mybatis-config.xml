@@ -18,5 +18,6 @@
         <mapper resource="mappers/UserMapper.xml"/>
         <mapper resource="mappers/PhotoMapper.xml"/>
         <mapper resource="mappers/MessageMapper.xml"/>
+        <mapper resource="mappers/RecordMapper.xml"/>
     </mappers>
 </configuration>

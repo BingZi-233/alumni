@@ -7,6 +7,9 @@ import online.bingzi.internal.routes.messageBoard.messageBoardInsert
 import online.bingzi.internal.routes.messageBoard.messageBoardQuery
 import online.bingzi.internal.routes.messageBoard.messageBoardUpdate
 import online.bingzi.internal.routes.photo.*
+import online.bingzi.internal.routes.record.recordInsert
+import online.bingzi.internal.routes.record.recordQuery
+import online.bingzi.internal.routes.record.recordUpdate
 import online.bingzi.internal.routes.user.userLogin
 import online.bingzi.internal.routes.user.userRegister
 import online.bingzi.internal.routes.user.userUnRegister
@@ -37,10 +40,22 @@ fun Application.configureRouting() {
                     // 用户信心更新
                     userUpdate("/update")
                 }
+                // 通讯录
+                route("/record") {
+                    // 新增
+                    recordInsert("/insert")
+                    // 查询
+                    recordQuery("/query")
+                    // 更新
+                    recordUpdate("/update")
+                }
                 // 留言板
                 route("/messageboard") {
+                    // 新增
                     messageBoardInsert("/insert")
+                    // 更新
                     messageBoardUpdate("/update")
+                    // 查询
                     messageBoardQuery("/query")
                 }
                 // 相册安全路由
