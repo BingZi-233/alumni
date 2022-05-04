@@ -7,6 +7,8 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.response.*
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.*
 
 private const val secret = "secret"
@@ -38,6 +40,6 @@ fun authGetToken(user: String): String {
     return JWT.create()
         .withAudience(audience)
         .withIssuer(issuer).withClaim("user", user)
-        .withExpiresAt(Date(System.currentTimeMillis() + 3600 * 1000 * 10))
+        .withExpiresAt(Date(LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli() + 3600 * 1000 * 10))
         .sign(Algorithm.HMAC256(secret))
 }

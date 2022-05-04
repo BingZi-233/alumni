@@ -31,9 +31,6 @@ interface RecordMapper {
     /**
      * Update record by user
      * 通过用户更新数据库
-     *
-     * @param user 用户
-     * @param data 数据
      */
-    fun updateRecordByUser(user: String, data: String)
+    fun updateRecordByUser(map: HashMap<String, String>)
 }

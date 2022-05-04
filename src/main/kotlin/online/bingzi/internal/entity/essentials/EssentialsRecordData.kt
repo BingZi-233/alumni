@@ -1,8 +1,8 @@
 package online.bingzi.internal.entity.essentials
 
-import com.alibaba.fastjson2.JSONArray
 import online.bingzi.internal.entity.record.RecordData
 import online.bingzi.internal.util.gson
+import online.bingzi.internal.util.typeRecordData
 
 /**
  * Essentials record data
@@ -17,7 +17,7 @@ data class EssentialsRecordData(
     var data: String = "",
 ) {
     fun getDataList(): MutableList<RecordData> {
-        return JSONArray.of(data).toJavaList(RecordData::class.java)
+        return gson.fromJson<MutableList<RecordData>>(data, typeRecordData) ?: mutableListOf()
     }
 
     fun setDataList(dataList: MutableList<RecordData>) {

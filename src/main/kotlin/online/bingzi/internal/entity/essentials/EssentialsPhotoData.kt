@@ -1,7 +1,7 @@
 package online.bingzi.internal.entity.essentials
 
-import com.alibaba.fastjson2.JSONArray
 import online.bingzi.internal.util.gson
+import online.bingzi.internal.util.typeStringList
 import java.util.*
 
 /**
@@ -62,11 +62,7 @@ data class EssentialsPhotoData(
     }
 
     fun getImageList(): MutableList<String> {
-        return try {
-            JSONArray.of(image).toJavaList(String::class.java)
-        } catch (e: Exception) {
-            mutableListOf()
-        }
+        return gson.fromJson(image, typeStringList) ?: mutableListOf()
     }
 
     fun setImageList(imageList: MutableList<String>) {

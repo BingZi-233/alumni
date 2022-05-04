@@ -9,6 +9,7 @@ import online.bingzi.internal.entity.ServiceResult
 import online.bingzi.internal.entity.StatusCode.Type.*
 import online.bingzi.internal.util.gson
 import online.bingzi.internal.util.photoMapper
+import online.bingzi.internal.util.typeStringList
 
 
 fun Route.photoImageInsert(path: String) {
@@ -26,8 +27,7 @@ fun Route.photoImageInsert(path: String) {
             // 这里进行了异常捕捉，因为JSONArray在序列化的时候可能引发异常导致无法正常返回数据。
             try {
                 // 将照片更新列表进行序列化
-//                val imageUpdateList = JSONArray.of(image).toJavaList(String::class.java)
-                val imageUpdateList = gson.fromJson(image, MutableList::class.java) as MutableList<String>
+                val imageUpdateList = gson.fromJson<MutableList<String>>(image, typeStringList)
                 // 从数据库中获取该相册中照片数据并在追加后返回一个包含照片更新列表的列表
                 photoMapper.queryPhotoByUid(uid)?.let {
                     // 对照片列表进行追加操作
@@ -37,7 +37,7 @@ fun Route.photoImageInsert(path: String) {
                         this["uid"] = uid
                         this["image"] = it.image
                     })
-                } ?: Exception("") // 如果为空直接引发异常，由上层异常捕捉进行处理
+                } ?: RuntimeException("") // 如果为空直接引发异常，由上层异常捕捉进行处理
                 // 返回成功状态码
                 OK
             } catch (e: Exception) {
