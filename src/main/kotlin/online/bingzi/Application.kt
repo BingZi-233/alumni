@@ -31,5 +31,8 @@ fun main() {
         // 安全配置
         // 管理账户的登录以及后续的验证
         configureSecurity()
+        // 模板配置
+        // 对响应的内容进行前端展示
+        configureThymeleaf()
     }.start(wait = true) // 阻塞启动
 }

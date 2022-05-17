@@ -25,9 +25,10 @@ repositories {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.9.0")
-    implementation("com.alibaba.fastjson2:fastjson2:2.0.1")
-    implementation("mysql:mysql-connector-java:8.0.28")
+    implementation("com.alibaba.fastjson2:fastjson2:2.0.3")
+    implementation("mysql:mysql-connector-java:8.0.29")
     implementation("org.mybatis:mybatis:$mybatis_version")
+    implementation("io.ktor:ktor-server-thymeleaf:$ktor_version")
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-call-logging-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
@@ -35,8 +36,8 @@ dependencies {
     implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
-    implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
 
