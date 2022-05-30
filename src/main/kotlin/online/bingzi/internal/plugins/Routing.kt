@@ -2,18 +2,19 @@ package online.bingzi.internal.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.http.content.*
 import io.ktor.server.routing.*
-import online.bingzi.internal.routes.messageBoard.messageBoardInsert
-import online.bingzi.internal.routes.messageBoard.messageBoardQuery
-import online.bingzi.internal.routes.messageBoard.messageBoardUpdate
-import online.bingzi.internal.routes.photo.*
-import online.bingzi.internal.routes.record.recordInsert
-import online.bingzi.internal.routes.record.recordQuery
-import online.bingzi.internal.routes.record.recordUpdate
-import online.bingzi.internal.routes.user.userLogin
-import online.bingzi.internal.routes.user.userRegister
-import online.bingzi.internal.routes.user.userUnRegister
-import online.bingzi.internal.routes.user.userUpdate
+import online.bingzi.internal.routes.api.messageBoard.messageBoardInsert
+import online.bingzi.internal.routes.api.messageBoard.messageBoardQuery
+import online.bingzi.internal.routes.api.messageBoard.messageBoardUpdate
+import online.bingzi.internal.routes.api.photo.*
+import online.bingzi.internal.routes.api.record.recordInsert
+import online.bingzi.internal.routes.api.record.recordQuery
+import online.bingzi.internal.routes.api.record.recordUpdate
+import online.bingzi.internal.routes.api.user.userLogin
+import online.bingzi.internal.routes.api.user.userRegister
+import online.bingzi.internal.routes.api.user.userUnRegister
+import online.bingzi.internal.routes.api.user.userUpdate
 
 /**
  * Configure routing
@@ -22,6 +23,32 @@ import online.bingzi.internal.routes.user.userUpdate
 fun Application.configureRouting() {
     // 默认自动安装，并使用routing{ }来进行集中管理路由请求
     routing {
+        static("/") {
+            staticBasePackage = "static"
+            resource("index.html")
+            defaultResource("index.html")
+
+            static {
+                staticBasePackage = "static/assets"
+                static("assets") {
+                    static("css") {
+                        resources("css")
+                    }
+                    static("imgs") {
+                        resources("imgs")
+                    }
+                    static("js") {
+                        resources("js")
+                    }
+                    static("scss") {
+                        resources("scss")
+                    }
+                    static("vendors") {
+                        resources("vendors")
+                    }
+                }
+            }
+        }
         // API接口路由
         route("/api") {
             // 安全不安全路由
